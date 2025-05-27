@@ -28,7 +28,7 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Metodo ExibirDados
-        public override void ExibirDados()
+        public void ExibirDados()
         {
             Console.WriteLine($"Registro da Sala: {RegistroSala}");
             Console.WriteLine($"Número da Sala: {NumeroSala}");
@@ -38,7 +38,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo AtualizarDados
-        public void UpdateSala(int registroSala, int numeroSala, int capacidade, string localizacao)
+        public void AtualizarDados(int registroSala, int numeroSala, int capacidade, string localizacao)
         {
             RegistroSala = registroSala;
             NumeroSala = numeroSala;
@@ -49,7 +49,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo ExcluirDados
-        public void DeleteSala()
+        public void ExcluirDados()
         {
             RegistroSala = 0;
             NumeroSala = 0;

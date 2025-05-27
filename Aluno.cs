@@ -37,7 +37,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo AtualizarDados
-        public void UpdateAluno(string novoCurso)
+        public void AtualizarDados(string novoCurso)
         {
             Curso = novoCurso;
             Console.WriteLine("Curso atualizado");
@@ -45,7 +45,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo ExcluirDados
-        public void DeleteAluno()
+        public void ExcluirDados()
         {
             RegistroMatricula = 0;
             Curso = string.Empty;

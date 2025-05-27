@@ -28,7 +28,7 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Método ExibirDados
-        public override void ExibirDados()
+        public void ExibirDados()
         {
             Console.WriteLine($"Aprovação do Professor: {aprovacaoProfessor}");
             Console.WriteLine($"Curso: {curso}");

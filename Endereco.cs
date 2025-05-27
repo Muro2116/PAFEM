@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trabalho_POO
-{ 
+{
     class Endereco
     {
         #region Atributos
@@ -32,7 +32,7 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Metodo ExibirDados
-        public override ExibirDados()
+        public ExibirDados()
         {
             Console.WriteLine($"Endereço: {Rua}, {Numero}, {Bairro}, {Cidade} - {Estado}, CEP: {CEP}");
         }

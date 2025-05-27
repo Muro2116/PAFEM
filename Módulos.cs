@@ -34,7 +34,7 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Metodo ExibirDados
-        public override void ExibirDados()
+        public void ExibirDados()
         {
             Console.WriteLine($"Módulo {NumeroModulo}: {TituloModulo}");
             Console.WriteLine($"Descrição: {Descricao}");

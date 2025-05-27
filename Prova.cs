@@ -29,6 +29,17 @@ namespace Trabalho_POO
 
         #region Metodos
 
+        #region Método ExibirDados
+        public void ExibirDados()
+        {
+            Console.WriteLine("Registro da Prova: " + RegistroProva);
+            Console.WriteLine("Disciplina: " + Disciplina);
+            Console.WriteLine("Data da Prova: " + DataProva.ToString("dd/MM/yyyy"));
+            Console.WriteLine("Nota: " + Nota);
+            Console.WriteLine("Recuperação: " + (Recuperacao ? "Sim" : "Não"));
+        }
+        #endregion
+
         #region Metood ValidarNota
         public bool ValidarNota()
         {
@@ -47,17 +58,6 @@ namespace Trabalho_POO
             {
                 Recuperacao = false;
             }
-        }
-        #endregion
-
-        #region Método ExibirDados
-        public override void ExibirDados()
-        {
-            Console.WriteLine("Registro da Prova: " + RegistroProva);
-            Console.WriteLine("Disciplina: " + Disciplina);
-            Console.WriteLine("Data da Prova: " + DataProva.ToString("dd/MM/yyyy"));
-            Console.WriteLine("Nota: " + Nota);
-            Console.WriteLine("Recuperação: " + (Recuperacao ? "Sim" : "Não"));
         }
         #endregion
 

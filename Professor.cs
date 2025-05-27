@@ -43,7 +43,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo AtualizarDados
-        public void UpdateProfessor(string nome, string telefone, string endereco, string especializacao, decimal salario)
+        public void AtualizarDados(string nome, string telefone, string endereco, string especializacao, decimal salario)
         {
             this.nome = nome;
             this.telefone = telefone;
@@ -54,7 +54,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo DeletarDados
-        public void DeleteProfessor()
+        public void DeletarDados()
         {
             registro = 0;
             nome = null;

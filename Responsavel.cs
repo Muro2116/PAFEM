@@ -33,7 +33,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo AtualizarDados
-        public void AtualizarInformacoes(string novoTelefone, string novoEndereco)
+        public void AtualizarDados(string novoTelefone, string novoEndereco)
         {
             telefone = novoTelefone;
             endereco = novoEndereco;

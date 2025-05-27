@@ -30,7 +30,7 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Metodo ExibirDados
-        public override void ExibirDados()
+        public void ExibirDados()
         {
             Console.WriteLine($"Registro: {Registro}");
             Console.WriteLine($"Nome: {Nome}");
@@ -41,7 +41,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo AtualizarDados
-        public void UpdateCurso(string nome, decimal valor, DateTime dataInicio, DateTime dataFim)
+        public void AtualizarDados(string nome, decimal valor, DateTime dataInicio, DateTime dataFim)
         {
             Nome = nome;
             Valor = valor;
@@ -51,7 +51,7 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo ExcluirDados
-        public void DeleteCurso()
+        public void ExcluirDados()
         {
             Registro = 0;
             Nome = null;
