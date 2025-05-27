@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trabalho_POO
 {
-    class Endereco
+    public class Endereco
     {
         #region Atributos
         public string rua { get; set; }
@@ -32,9 +32,9 @@ namespace Trabalho_POO
         #region Metodos
 
         #region Metodo ExibirDados
-        public ExibirDados()
+        public void ExibirDados()
         {
-            Console.WriteLine($"Endereço: {Rua}, {Numero}, {Bairro}, {Cidade} - {Estado}, CEP: {CEP}");
+            Console.WriteLine($"Endereço: {rua}, {numero}, {bairro}, {cidade} - {estado}, CEP: {cep}");
         }
         #endregion
 

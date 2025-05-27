@@ -9,13 +9,14 @@ namespace Trabalho_POO
     public class Módulos
     {
         #region Atributos
-        private int numeroModulo { get; set; }
-        private string tituloModulo { get; set; }
-        private string descricao { get; set; }
-        private bool concluido { get; private set; }
-        private DateTime? dataInicio { get; set; }
-        private DateTime? dataConclusao { get; set; }
-        private Aluno Aluno { get; set; }
+        public int numeroModulo { get; set; }
+        public string tituloModulo { get; set; }
+        public string descricao { get; set; }
+        public bool concluido { get; private set; }
+        public DateTime? dataInicio { get; set; }
+        public DateTime? dataConclusao { get; set; }
+        public Aluno Aluno { get; set; }
+        public Prova prova { get; set; }
         #endregion
 
         #region Construtor
@@ -28,6 +29,7 @@ namespace Trabalho_POO
             this.concluido = false;
             this.dataInicio = null;
             this.dataConclusao = null;
+            
         }
         #endregion
 
@@ -50,6 +52,30 @@ namespace Trabalho_POO
             DataConclusao = DateTime.Now;
             Console.WriteLine($"Módulo \"{TituloModulo}\"foi concluido em {DataConclusao.Value.ToShortDateString()}");
         }
+        #endregion
+
+        #region Metodo Verificar Situacao
+
+        public void VerificarSituacao()
+        {
+            if (Prova == null)
+            {
+                Console.WriteLine("O módulo ainda está pendente. Prova não realizada.");
+            }
+            else if (Prova.VerificarRecuperacao())
+            {
+                Console.WriteLine("Você não atingiu nota suficiente, agende uma nova prova.");
+            }
+            else if (Concluido)
+            {
+                Console.WriteLine("Parabéns! O módulo foi concluído com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("O módulo ainda está em andamento.");
+            }
+        }
+
         #endregion
 
         #region Metodo Certificado

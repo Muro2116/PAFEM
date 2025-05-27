@@ -9,14 +9,16 @@ namespace Trabalho_POO
     public class Responsavel : Pessoa
     {
         #region Atributos
-        private int registroResponsavel { get; set; }
+        public int RegistroResponsavel { get; set; }
+        public Aluno Aluno { get; set; }
         #endregion
 
         #region Construtor
-        public Responsavel(int registroResponsavel, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco)
+        public Responsavel(int registroResponsavel, Aluno aluno, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco)
             : base(nome, genero, cpf, rg, nascimento, telefone, endereco)
         {
-            this.registroResponsavel = registroResponsavel;
+            this.RegistroResponsavel = registroResponsavel;
+            this.Aluno = aluno;
         }
         #endregion
 
@@ -25,15 +27,19 @@ namespace Trabalho_POO
         #region Metodo ExibirDados
         public override void ExibirDados()
         {
-            Console.WriteLine($"Registro do Responsável: {registroResponsavel}");
+            Console.WriteLine($"Registro do Responsável: {RegistroResponsavel}");
             Console.WriteLine($"Nome do Responsável: {nome}");
             Console.WriteLine($"Telefone de Emergência: {telefone}");
-            Console.WriteLine($"Endereço: {endereco}");
+            Console.Write($"Endereço: ");
+            endereco.ExibirDados();
+            Console.WriteLine("\nDados do Aluno vinculado: ");
+            Aluno.ExibirDados();
+
         }
         #endregion
 
         #region Metodo AtualizarDados
-        public void AtualizarDados(string novoTelefone, string novoEndereco)
+        public void AtualizarDados(string novoTelefone, Endereco novoEndereco)
         {
             telefone = novoTelefone;
             endereco = novoEndereco;
@@ -44,13 +50,20 @@ namespace Trabalho_POO
         #region Metodo ValidarDados
         public bool DadosSaoValidos()
         {
-            return !string.IsNullOrWhiteSpace(Nome_Responsavel) &&
-                   !string.IsNullOrWhiteSpace(Telefone_Emergencia) &&
-                   !string.IsNullOrWhiteSpace(Endereco) &&
-                    Registro_Responsavel > 0;
+            return !string.IsNullOrWhiteSpace(nome) &&
+                   !string.IsNullOrWhiteSpace(telefone) &&
+                   endereco != null &&
+                   RegistroResponsavel > 0;
         }
         #endregion
 
+        #region Metodo Obter Aluno vinculado ao responsavel
+
+        public Aluno ObterAlunoVinculado()
+        {
+            return Aluno;
+        }
+            
         #endregion
     }
 }
