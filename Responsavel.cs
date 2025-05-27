@@ -3,41 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Trabalho_Ernesto;
 
-namespace Trabalho_Ernesto
+namespace Trabalho_POO
 {
-    public class Responsavel
+    public class Responsavel : Pessoa
     {
-        public int Registro_Responsavel { get; set; }
-        public string Nome_Responsavel { get; set; }
-        public string Telefone_Emergencia { get; set; }
-        public string Endereco { get; set; }
+        #region Atributos
+        private int registroResponsavel { get; set; }
+        private string endereco { get; set; }
+        #endregion
 
+        #region Construtor
 
+        #endregion
 
-        //método para exibir informações
+        #region Metodos
 
-        public string ExibirDados ()
+        #region Metodo ExibirDados
+        public override void ExibirDados()
         {
-            return $"Numero de Registro: {Registro_Responsavel}\n" +
-                   $"Nome do responsável: {Nome_Responsavel}\n" +
-                   $"Telefone: {Telefone_Emergencia}\n"+
-                   $"Endereço: {Endereco}";
-                   
+            Console.WriteLine($"Registro do Responsável: {registroResponsavel}");
+            Console.WriteLine($"Nome do Responsável: {nome}");
+            Console.WriteLine($"Telefone de Emergência: {telefone}");
+            Console.WriteLine($"Endereço: {endereco}");
         }
+        #endregion
 
-        //metodo para atualizar info
-
-        public void AtualizarContato(string novoTelefone_Emergencia, string novoEndereco)
+        #region Metodo AtualizarDados
+        public void AtualizarInformacoes(string novoTelefone, string novoEndereco)
         {
-            Telefone_Emergencia = novoTelefone_Emergencia;
-            Endereco = novoEndereco;
+            telefone = novoTelefone;
+            endereco = novoEndereco;
             Console.WriteLine("Informações atualizadas com sucesso.");
         }
+        #endregion
 
-        //metodo para validar dados
-
+        #region Metodo ValidarDados
         public bool DadosSaoValidos()
         {
             return !string.IsNullOrWhiteSpace(Nome_Responsavel) &&
@@ -45,7 +46,8 @@ namespace Trabalho_Ernesto
                    !string.IsNullOrWhiteSpace(Endereco) &&
                     Registro_Responsavel > 0;
         }
+        #endregion
 
-
+        #endregion
     }
 }

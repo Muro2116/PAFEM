@@ -3,45 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Trabalho_Ernesto;
 
-namespace Trabalho_Ernesto
+namespace Trabalho_POO
 {
     public class Módulos
     {
-        public int NumeroModulo { get; set; }
-        public string TituloModulo { get; set; }
-        public string Descricao { get; set; }
-        public bool Concluido { get; private set; }
-        public DateTime? DataInicio { get; set; }
-        public DateTime? DataConclusao { get; set; }
+        #region Atributos
+        private int numeroModulo { get; set; }
+        private string tituloModulo { get; set; }
+        private string descricao { get; set; }
+        private bool concluido { get; private set; }
+        private DateTime? dataInicio { get; set; }
+        private DateTime? dataConclusao { get; set; }
+        private Aluno Aluno { get; set; }
+        #endregion
 
-        //Ref ao aluno
+        #region Construtor
+        public Módulos(int numeroModulo, string tituloModulo, string descricao, Aluno aluno)
+        {
+            this.numeroModulo = numeroModulo;
+            this.tituloModulo = tituloModulo;
+            this.descricao = descricao;
+            this.Aluno = aluno;
+            this.concluido = false;
+            this.dataInicio = null;
+            this.dataConclusao = null;
+        }
+        #endregion
 
-        public Aluno Aluno { get; set; }
+        #region Metodos
 
-
-        //metodo exibir informações
-
-        public void ExibirInformacoes()
+        #region Metodo ExibirDados
+        public override void ExibirDados()
         {
             Console.WriteLine($"Módulo {NumeroModulo}: {TituloModulo}");
             Console.WriteLine($"Descrição: {Descricao}");
             Console.WriteLine($"Iniciado em: {DataInicio?.ToShortDateString() ?? "Não iniciado"}");
             Console.WriteLine($"Status: {(Concluido ? "Concluido" : "Pendente")}");
         }
+        #endregion
 
-        //metodo marcar como concluido
-
+        #region MetodoConcluirModulo
         public void MarcarComoConcluido()
         {
             Concluido = true;
             DataConclusao = DateTime.Now;
             Console.WriteLine($"Módulo \"{TituloModulo}\"foi concluido em {DataConclusao.Value.ToShortDateString()}");
         }
+        #endregion
 
-        //metodo para emitir certificado caso tenha concluido o módulo
-
+        #region Metodo Certificado
         public void EmitirCertificado()
         {
             if (Concluido)
@@ -59,9 +70,9 @@ namespace Trabalho_Ernesto
             {
                 Console.WriteLine($"O módulo \"{TituloModulo}\" ainda não foi concluído. Conclua para emitir o certificado.");
             }
-
-
         }
+        #endregion
+
+        #endregion
     }
 }
-

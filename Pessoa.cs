@@ -1,45 +1,79 @@
-namespace Trabalho_POO;
-
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Pessoa
+namespace Trabalho_POO
 {
-    // Atributos
-    public required string Nome {get; set;}
-    public required string Genero {get; set;}
-    public required string CPF {get; set;}
-    public required string RG {get; set;}
-    public required DateTime Nascimento {get; set;}
-    public required string Telefone {get; set;}
-
-    // Construtor
-    public Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone)
+    public abstract class Pessoa
     {
-        Nome = nome;
-        Genero = genero;
-        CPF = cpf;
-        RG = rg;
-        Nascimento = nascimento;
-        Telefone = telefone;
-    }
+        #region Atributos
+        protected required string nome { get; set; }
+        protected required string genero { get; set; }
+        protected required string cpf { get; set; }
+        protected required string rg { get; set; }
+        protected required DateTime nascimento { get; set; }
+        protected required string telefone { get; set; }
+        #endregion
 
-    // Métodos
+        #region Construtor
+        public Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone)
+        {
+            this.nome = nome;
+            this.genero = genero;
+            this.cpf = cpf;
+            this.rg = rg;
+            this.nascimento = nascimento;
+            this.telefone = telefone;
+        }
+        #endregion
 
-    // Metodo para Validar CPF
+        #region Metodos
 
-    // Limpar a entrada do cpf deixando apenas numeros
-    // Verificar tamanho do cpf (11 digitos) e se o cpf tem numeros iguais 
-    // Verificar primeiro digito de validacao (for para iterar os pesos sobre cada número)
-    // Verificar segundo digito de validacao (for para iterar os pesos sobre cada número)
-    // retornar bool
+        #region Método para validar CPF
+        public static bool ValidarCPF(string cpf)
+        {
+            cpf = cpf.Replace(".", "").Replace("-", "");
 
-    // Exibir dados
-    public void ExibirDados()
-    {
-        Console.WriteLine("Nome: " + Nome);
-        Console.WriteLine("CPF: " + CPF);
-        Console.WriteLine("RG: " + RG);
-        Console.WriteLine("Nascimento: " + Nascimento.ToString("dd/MM/yyyy"));
-        Console.WriteLine("Telefone: " + Telefone);
+            if (cpf.Length != 11 || cpf.Distinct().Count() == 1)
+                return false;
+
+            for (int digito = 0; digito < 2; digito++)
+            {
+                int soma = 0;
+                int peso = 10 + digito;
+
+                for (int i = 0; i < 9 + digito; i++)
+                {
+                    soma += (cpf[i] - '0') * (peso - i);
+                }
+
+                int resultado = soma % 11;
+
+                int verificador = resultado < 2 ? 0 : 11 - resultado;
+
+                if ((cpf[9 + digito] - '0') != verificador)
+                    return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region Método exibir dados
+        public virtual void ExibirDados()
+        {
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine($"Nome: {nome}");
+            Console.WriteLine($"Gênero: {genero}")
+            Console.WriteLine($"CPF: {cpf}");
+            Console.WriteLine($"RG: {rg}");
+            Console.WriteLine($"Data de Nascimento: {nascimento:dd/MM/yyyy}");
+            Console.WriteLine($"Telefone: {telefone}");
+            Console.WriteLine("------------------------------------");
+        }
+        #endregion
+
+        #endregion
     }
 }

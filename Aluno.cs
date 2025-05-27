@@ -4,56 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes_NP1_Programacao_orientada_a_objetos
+namespace Trabalho_POO
 {
-    public class Aluno
+    public class Aluno : Pessoa
     {
-        //atributos
-        public int RegistroMatricula { get; private set; }
-        public string Curso { get; set; }
-        public DateTime DataMatricula { get; private set; }
+        #region Atributos
+        private int RegistroMatricula { get; private set; }
+        private string Curso { get; set; }
+        private DateTime DataMatricula { get; private set; }
+        #endregion
 
-        public string Nome { get; set; }
-        public string Genero { get; set; }
-        public string CPF { get; set; }
-        public string RG { get; set; }
-        public DateTime Nascimento { get; set; }
-        public string Telefone { get; set; }
-
-        //construtor
+        #region Construtor
         public Aluno(int registromatricula, string curso, DateTime dataMatricula, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone)
+            : base(nome, genero, cpf, rg, nascimento, telefone)
         {
             RegistroMatricula = registromatricula;
             Curso = curso;
             DataMatricula = dataMatricula;
-            Nome = nome;
-            Genero = genero;
-            CPF = cpf;
-            RG = rg;
-            Nascimento = nascimento;
-            Telefone = telefone;
         }
+        #endregion
 
-        //métodos
-        public void CreateAluno (int registromatricula, string curso, DateTime datamatricula)
+        #region Metodos
+
+        #region Metodo ExibirDados
+        public override void ExibirDados()
         {
-            RegistroMatricula = registromatricula;
-            Curso = curso;
-            DataMatricula = datamatricula;
-            Console.WriteLine("Matricula do aluno criada.");
+            base.ExibirDados();
+            Console.WriteLine($"Registro Matrícula: {RegistroMatricula}");
+            Console.WriteLine($"Curso: {Curso}");
+            Console.WriteLine($"Data da Matrícula: {DataMatricula.ToString("dd/MM/yyyy")}");
         }
+        #endregion
 
-        public void ReadAluno ()
-        { Console.WriteLine($"Registro: {RegistroMatricula}, Curso: {Curso}, Data da matrícula {DataMatricula}");
-
-        }
-
-        public void UpdateAluno (string novoCurso)
+        #region Metodo AtualizarDados
+        public void UpdateAluno(string novoCurso)
         {
             Curso = novoCurso;
             Console.WriteLine("Curso atualizado");
         }
+        #endregion
 
+        #region Metodo ExcluirDados
         public void DeleteAluno()
         {
             RegistroMatricula = 0;
@@ -61,61 +52,23 @@ namespace Classes_NP1_Programacao_orientada_a_objetos
             DataMatricula = DateTime.MinValue;
             Console.WriteLine("Aluno Excluido");
         }
+        #endregion
 
-        public int GetMatricula ()
-        {  
-            return RegistroMatricula; 
-        }
-
-        public void Setmatricula (int novoregistromatricula)
-        {
-            RegistroMatricula= novoregistromatricula;
-            Console.WriteLine("Nova matriculada realizada com sucesso");
-        }
-
-        public string GetCurso ()
-        {
-            return Curso;
-        }
-
-        public void SetCurso (string curso)
-        {
-            Curso = curso;
-            Console.WriteLine("Curso atualizado");
-        }
-
-        public DateTime GetDataMatricula()
-        {
-            return DataMatricula;
-        }
-
-        public void SetDataMatricula(DateTime dataMatricula)
-        {
-            DataMatricula = dataMatricula;
-            Console.WriteLine("Data de matrícula atualizada com sucesso!");
-        }
-
-    
+        #region Metodo VerificarMatriculaAtiva
         public bool VerificarMatriculaAtiva()
         {
             return RegistroMatricula != 0;
         }
+        #endregion
 
+        #region Metodo TempoDeMatricula
         public TimeSpan TempoDeMatricula()
         {
             return DateTime.Now - DataMatricula;
         }
+        #endregion
 
-        public void ExibirInfo()
-        {
-            Console.WriteLine($"Registro Matrícula: {RegistroMatricula}");
-            Console.WriteLine($"Curso: {Curso}");
-            Console.WriteLine($"Data da Matrícula: {DataMatricula}");
-            Console.WriteLine($"Tempo de Matrícula: {TempoDeMatricula().Days} dias");
-            Console.WriteLine($"Matrícula Ativa: {(VerificarMatriculaAtiva() ? "Sim" : "Não")}");
-        }
-
-        // Calcular idade
+        #region Metodo CalcularIdade
         public int CalcularIdade()
         {
             var hoje = DateTime.Today;
@@ -123,24 +76,8 @@ namespace Classes_NP1_Programacao_orientada_a_objetos
             if (Nascimento.Date > hoje.AddYears(-idade)) idade--;
             return idade;
         }
+        #endregion
 
-        // Exibir dados
-        public void ExibirDados()
-        {
-            Console.WriteLine("Nome: " + Nome);
-            Console.WriteLine("CPF: " + CPF);
-            Console.WriteLine("RG: " + RG);
-            Console.WriteLine("Nascimento: " + Nascimento.ToString("dd/MM/yyyy"));
-            Console.WriteLine("Idade: " + CalcularIdade());
-            Console.WriteLine("Telefone: " + Telefone);
-        }
+        #endregion
     }
-
-
 }
-
-
-
-
-
-    

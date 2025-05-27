@@ -1,28 +1,42 @@
-﻿namespace Trabalho_POO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using System;
-
-public class Recuperacao
+namespace Trabalho_POO
 {
-    // Atributos
-    public required string Aprovacao_Professor {get; set;}
-    public required string Curso {get; set;}
-    public required DateTime Data_Recuperacao {get; set;}
-    public required string Registro_Prova {get; set;}
-    
+    public class Recuperacao
+    {
+        #region Atributos
+        private required string aprovacaoProfessor { get; set; }
+        private required string curso { get; set; }
+        private required DateTime dataRecuperacao { get; set; }
+        private required string registroProva { get; set; }
+        #endregion
 
-    // Construtor
-    public Recuperacao (string aprovacao_professor, string curso, DateTime data_recupercao, string registro_prova)
+        #region Construtor
+        public Recuperacao(string aprovacaoProfessor, string curso, DateTime dataRecuperacao, string registroProva)
         {
-            Aprovacao_Professor = aprovacao_professor;
-            Curso = curso;
-            Data_Recuperacao = data_recupercao;
-            Registro_Prova = registro_prova;
+            this.aprovacaoProfessor = aprovacaoProfessor;
+            this.curso = curso;
+            this.dataRecuperacao = dataRecuperacao;
+            this.registroProva = registroProva;
         }
-    
-    // Metodos
-    public override string ToString()
+        #endregion
+
+        #region Metodos
+
+        #region Método ExibirDados
+        public override void ExibirDados()
         {
-            return $"Estado da aprovação da recuperação: {Aprovacao_Professor} \nCurso da recuperação: {Curso} \nData da prova: {Data_Recuperacao} \nId da prova: {Registro_Prova}";
+            Console.WriteLine($"Aprovação do Professor: {aprovacaoProfessor}");
+            Console.WriteLine($"Curso: {curso}");
+            Console.WriteLine($"Data da Recuperação: {dataRecuperacao.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"Registro da Prova: {registroProva}");
         }
+        #endregion
+
+        #endregion
+    }
 }
