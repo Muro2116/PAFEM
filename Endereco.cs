@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trabalho_POO
-{
+{ 
     class Endereco
     {
         #region Atributos
