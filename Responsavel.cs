@@ -10,11 +10,14 @@ namespace Trabalho_POO
     {
         #region Atributos
         private int registroResponsavel { get; set; }
-        private string endereco { get; set; }
         #endregion
 
         #region Construtor
-
+        public Responsavel(int registroResponsavel, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco)
+            : base(nome, genero, cpf, rg, nascimento, telefone, endereco)
+        {
+            this.registroResponsavel = registroResponsavel;
+        }
         #endregion
 
         #region Metodos

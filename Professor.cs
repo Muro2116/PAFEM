@@ -4,21 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Trabalho_POO
 {
     public class Professor : Pessoa
     {
         #region Atributos
         private required int registro { get; set; }
-        private required string endereco { get; set; }
         private required string especializacao { get; set; }
         private required decimal salario { get; set; }
         private required DateTime dataContratacao { get; set; }
         #endregion
 
         #region Construtor
-        
+        public Professor(int registro, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco, string especializacao, decimal salario, DateTime dataContratacao)
+            : base(nome, genero, cpf, rg, nascimento, telefone, endereco)
+        {
+            this.registro = registro;
+            this.especializacao = especializacao;
+            this.salario = salario;
+            this.dataContratacao = dataContratacao;
+        }
         #endregion
 
         #region Metodos

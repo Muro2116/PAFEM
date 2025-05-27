@@ -9,18 +9,18 @@ namespace Trabalho_POO
     public class Aluno : Pessoa
     {
         #region Atributos
-        private int RegistroMatricula { get; private set; }
-        private string Curso { get; set; }
-        private DateTime DataMatricula { get; private set; }
+        private int registroMatricula { get; private set; }
+        private string curso { get; set; }
+        private DateTime dataMatricula { get; private set; }
         #endregion
 
         #region Construtor
-        public Aluno(int registromatricula, string curso, DateTime dataMatricula, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone)
+        public Aluno(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, int registroMatricula, string curso, DateTime dataMatricula)
             : base(nome, genero, cpf, rg, nascimento, telefone)
         {
-            RegistroMatricula = registromatricula;
-            Curso = curso;
-            DataMatricula = dataMatricula;
+            this.RegistroMatricula = registroMatricula;
+            this.Curso = curso;
+            this.DataMatricula = dataMatricula;
         }
         #endregion
 

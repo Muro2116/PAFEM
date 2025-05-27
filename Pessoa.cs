@@ -15,10 +15,11 @@ namespace Trabalho_POO
         protected required string rg { get; set; }
         protected required DateTime nascimento { get; set; }
         protected required string telefone { get; set; }
+        protected required Endereco endereco { get; set; }
         #endregion
 
         #region Construtor
-        public Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone)
+        public Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco Endereco)
         {
             this.nome = nome;
             this.genero = genero;
@@ -26,6 +27,7 @@ namespace Trabalho_POO
             this.rg = rg;
             this.nascimento = nascimento;
             this.telefone = telefone;
+            this.endereco = endereco;
         }
         #endregion
 
