@@ -10,7 +10,7 @@ namespace Trabalho_POO
     {
         #region Atributos
         private required string aprovacaoProfessor { get; set; }
-        private required string curso { get; set; }
+        private required string disciplina { get; set; }
         private required DateTime dataRecuperacao { get; set; }
         private required string registroProva { get; set; }
         #endregion
@@ -19,7 +19,7 @@ namespace Trabalho_POO
         public Recuperacao(string aprovacaoProfessor, string curso, DateTime dataRecuperacao, string registroProva)
         {
             this.aprovacaoProfessor = aprovacaoProfessor;
-            this.curso = curso;
+            this.disciplina = disciplina;
             this.dataRecuperacao = dataRecuperacao;
             this.registroProva = registroProva;
         }

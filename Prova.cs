@@ -13,17 +13,17 @@ namespace Trabalho_POO
         private required string disciplina { get; set; }
         private required DateTime dataProva { get; set; }
         private required double nota { get; set; }
-        private bool recuperacao { get; set; }
+        private bool necessitaRecuperacao { get; set; }
         #endregion
 
         #region Construtor
-        public Prova(string registroProva, string disciplina, DateTime dataProva, double nota, bool recuperacao)
+        public Prova(string registroProva, string disciplina, DateTime dataProva, double nota, bool ncessitaRecuperacao)
         {
             this.registroProva = registroProva;
             this.disciplina = disciplina;
             this.dataProva = dataProva;
             this.nota = nota;
-            this.recuperacao = recuperacao;
+            this.ncessitaRecuperacao = false;
         }
         #endregion
 
@@ -48,15 +48,27 @@ namespace Trabalho_POO
         #endregion
 
         #region Metodo VerificarRecuperacao
-        public void VerificarRecuperacao()
+        public Recuperacao? GerarAgendamentoRecuperacao(string registroAluno, DateTime dataAgendadaParaRecuperacao)
         {
-            if (Nota < 6)
+            if (this.Nota < 7)
             {
-                Recuperacao = true;
+                this.necessitaRecuperacao = true;
+                Recuperacao agendamento = new Recuperacao
+                (
+                    aprovacaoProfessor: "Aguardando aprovação do professor",
+                    disciplina: this.Disciplina,
+                    dataRecuperacao: dataAgendadaParaRecuperacao,
+                    registroProva: this.RegistroProva
+                );
+                Console.WriteLine($"Aluno (RA: {registroAluno}) necessita de recuperação para a disciplina '{this.Disciplina}' (Prova: {this.RegistroProva}).");
+                Console.WriteLine($"Agendamento de recuperação criado para {dataAgendadaParaRecuperacao:dd/MM/yyyy}.");
+                return agendamento;
             }
             else
             {
-                Recuperacao = false;
+                this.necessitaRecuperacao = false;
+                Console.WriteLine($"Aluno (RA: {registroAluno}) não necessita de recuperação para a disciplina '{this.Disciplina}' (Prova: {this.RegistroProva}).");
+                return null;
             }
         }
         #endregion
