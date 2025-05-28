@@ -9,21 +9,21 @@ namespace Trabalho_POO
     public class Prova
     {
         #region Atributos
-        private required string registroProva { get; set; }
-        private required string disciplina { get; set; }
-        private required DateTime dataProva { get; set; }
-        private required double nota { get; set; }
-        private bool necessitaRecuperacao { get; set; }
+        public string RegistroProva { get; private set; }
+        public string Disciplina { get; private set; }
+        public DateTime DataProva { get; private set; }
+        public double Nota { get; private set; } 
+        public bool NecessitaRecuperacao { get; set; }
         #endregion
 
         #region Construtor
-        public Prova(string registroProva, string disciplina, DateTime dataProva, double nota, bool ncessitaRecuperacao)
+        public Prova(string registroProva, string disciplina, DateTime dataProva, double nota, bool necessitaRecuperacao)
         {
-            this.registroProva = registroProva;
-            this.disciplina = disciplina;
-            this.dataProva = dataProva;
-            this.nota = nota;
-            this.ncessitaRecuperacao = false;
+            RegistroProva = registroProva;
+            Disciplina = disciplina;
+            DataProva = dataProva;
+            Nota = nota;
+            NecessitaRecuperacao = necessitaRecuperacao;
         }
         #endregion
 
@@ -36,29 +36,29 @@ namespace Trabalho_POO
             Console.WriteLine("Disciplina: " + Disciplina);
             Console.WriteLine("Data da Prova: " + DataProva.ToString("dd/MM/yyyy"));
             Console.WriteLine("Nota: " + Nota);
-            Console.WriteLine("Recuperação: " + (Recuperacao ? "Sim" : "Não"));
+            Console.WriteLine("Necessita Recuperação: " + (NecessitaRecuperacao ? "Sim" : "Não"));
         }
         #endregion
 
         #region Metood ValidarNota
         public bool ValidarNota()
-        {
+{
             return Nota >= 0 && Nota <= 10;
         }
         #endregion
 
-        #region Metodo VerificarRecuperacao
+        #region Metodo GerarAgendamentoRecuperacao
         public Recuperacao? GerarAgendamentoRecuperacao(string registroAluno, DateTime dataAgendadaParaRecuperacao)
         {
             if (this.Nota < 7)
             {
-                this.necessitaRecuperacao = true;
-                Recuperacao agendamento = new Recuperacao
-                (
+                this.NecessitaRecuperacao = true;
+                Recuperacao agendamento = new Recuperacao(
+                    registroAluno: registroAluno,
                     aprovacaoProfessor: "Aguardando aprovação do professor",
                     disciplina: this.Disciplina,
                     dataRecuperacao: dataAgendadaParaRecuperacao,
-                    registroProva: this.RegistroProva
+                    registroProvaReferencia: this.RegistroProva
                 );
                 Console.WriteLine($"Aluno (RA: {registroAluno}) necessita de recuperação para a disciplina '{this.Disciplina}' (Prova: {this.RegistroProva}).");
                 Console.WriteLine($"Agendamento de recuperação criado para {dataAgendadaParaRecuperacao:dd/MM/yyyy}.");
@@ -66,8 +66,8 @@ namespace Trabalho_POO
             }
             else
             {
-                this.necessitaRecuperacao = false;
-                Console.WriteLine($"Aluno (RA: {registroAluno}) não necessita de recuperação para a disciplina '{this.Disciplina}' (Prova: {this.RegistroProva}).");
+                this.NecessitaRecuperacao = false;
+                Console.WriteLine($"Aluno (RA: {registroAluno}) não necessita de recuperação para a disciplina '{this.Disciplina}' (Prova: {this.RegistroProva}). Nota: {this.Nota}");
                 return null;
             }
         }

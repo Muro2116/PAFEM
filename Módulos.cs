@@ -9,27 +9,27 @@ namespace Trabalho_POO
     public class Módulos
     {
         #region Atributos
-        public int numeroModulo { get; set; }
-        public string tituloModulo { get; set; }
-        public string descricao { get; set; }
-        public bool concluido { get; private set; }
-        public DateTime? dataInicio { get; set; }
-        public DateTime? dataConclusao { get; set; }
+        public int NumeroModulo { get; set; }
+        public string TituloModulo { get; set; }
+        public string Descricao { get; set; }
+        public bool Concluido { get; private set; }
+        public DateTime? DataInicio { get; set; }
+        public DateTime? DataConclusao { get; private set; }
         public Aluno Aluno { get; set; }
-        public Prova prova { get; set; }
+        public Prova Prova { get; set; }
         #endregion
 
         #region Construtor
         public Módulos(int numeroModulo, string tituloModulo, string descricao, Aluno aluno)
         {
-            this.numeroModulo = numeroModulo;
-            this.tituloModulo = tituloModulo;
-            this.descricao = descricao;
-            this.Aluno = aluno;
-            this.concluido = false;
-            this.dataInicio = null;
-            this.dataConclusao = null;
-            
+            NumeroModulo = numeroModulo;
+            TituloModulo = tituloModulo;
+            Descricao = descricao;
+            Aluno = aluno;
+            Concluido = false;
+            DataInicio = null;
+            DataConclusao = null;
+            Prova = null;
         }
         #endregion
 
@@ -38,19 +38,70 @@ namespace Trabalho_POO
         #region Metodo ExibirDados
         public void ExibirDados()
         {
-            Console.WriteLine($"Módulo {NumeroModulo}: {TituloModulo}");
+            Console.WriteLine($"--- Módulo {NumeroModulo}: {TituloModulo} ---");
             Console.WriteLine($"Descrição: {Descricao}");
+            Console.WriteLine($"Aluno: {Aluno?.Nome ?? "Não especificado"}");
             Console.WriteLine($"Iniciado em: {DataInicio?.ToShortDateString() ?? "Não iniciado"}");
-            Console.WriteLine($"Status: {(Concluido ? "Concluido" : "Pendente")}");
+            Console.WriteLine($"Status: {(Concluido ? "Concluído" : "Pendente")}");
+            if (Concluido && DataConclusao.HasValue)
+            {
+                Console.WriteLine($"Data de Conclusão: {DataConclusao.Value.ToShortDateString()}");
+            }
+            if (Prova != null)
+            {
+                Console.WriteLine($"Prova Associada: {Prova.RegistroProva}, Disciplina: {Prova.Disciplina}, Nota: {Prova.Nota}");
+            }
+            else
+            {
+                Console.WriteLine("Prova: Nenhuma prova associada ou realizada ainda.");
+            }
+            Console.WriteLine("-----------------------------------");  
         }
         #endregion
 
         #region MetodoConcluirModulo
         public void MarcarComoConcluido()
         {
-            Concluido = true;
-            DataConclusao = DateTime.Now;
-            Console.WriteLine($"Módulo \"{TituloModulo}\"foi concluido em {DataConclusao.Value.ToShortDateString()}");
+            if (!Concluido)
+            {
+                Concluido = true;
+                DataConclusao = DateTime.Now;
+                Console.WriteLine($"Módulo \"{TituloModulo}\" foi concluído em {DataConclusao.Value.ToShortDateString()}.");
+            }
+            else
+            {
+                Console.WriteLine($"Módulo \"{TituloModulo}\" já está marcado como concluído.");
+            }
+        }
+        #endregion
+
+        #region Metodo RegistrarDataInicio
+        public void RegistrarDataInicio()
+        {
+            if (!DataInicio.HasValue)
+            {
+                DataInicio = DateTime.Now;
+                Console.WriteLine($"Módulo \"{TituloModulo}\" iniciado em {DataInicio.Value.ToShortDateString()}.");
+            }
+            else
+            {
+                Console.WriteLine($"Módulo \"{TituloModulo}\" já foi iniciado em {DataInicio.Value.ToShortDateString()}.");
+            }
+        }
+        #endregion
+
+        #region Metodo AssociarProva
+        public void AssociarProva(Prova prova)
+        {
+            if (prova != null)
+            {
+                this.Prova = prova;
+                Console.WriteLine($"Prova {prova.RegistroProva} associada ao módulo \"{TituloModulo}\".");
+            }
+            else
+            {
+                Console.WriteLine("Não é possível associar uma prova nula.");
+            }
         }
         #endregion
 
@@ -58,22 +109,24 @@ namespace Trabalho_POO
 
         public void VerificarSituacao()
         {
+            Console.WriteLine($"--- Situação do Módulo: {TituloModulo} (Aluno: {Aluno?.Nome ?? "N/A"}) ---");
             if (Prova == null)
             {
-                Console.WriteLine("O módulo ainda está pendente. Prova não realizada.");
+                Console.WriteLine("Status: Pendente. Nenhuma prova foi associada ou realizada para este módulo.");
             }
-            else if (Prova.VerificarRecuperacao())
+            else if (Prova.NecessitaRecuperacao)
             {
-                Console.WriteLine("Você não atingiu nota suficiente, agende uma nova prova.");
+                Console.WriteLine($"Status: Reprovado na avaliação (Nota: {Prova.Nota}). Necessita agendar recuperação para a prova {Prova.RegistroProva}.");
             }
             else if (Concluido)
             {
-                Console.WriteLine("Parabéns! O módulo foi concluído com sucesso.");
+                Console.WriteLine($"Status: Aprovado e Concluído! (Nota na prova: {Prova.Nota})");
             }
             else
             {
-                Console.WriteLine("O módulo ainda está em andamento.");
+                Console.WriteLine($"Status: Aprovado na avaliação (Nota: {Prova.Nota}), mas o módulo ainda está em andamento ou aguardando outras pendências para conclusão.");
             }
+            Console.WriteLine("---------------------------------------------------------");
         }
 
         #endregion
@@ -81,20 +134,24 @@ namespace Trabalho_POO
         #region Metodo Certificado
         public void EmitirCertificado()
         {
-            if (Concluido)
+            bool aprovadoNaProva = Prova != null && !Prova.NecessitaRecuperacao;
+
+            if (Concluido && aprovadoNaProva)
             {
                 Console.WriteLine("===================================");
-                Console.WriteLine("       CERTIFICADO DE CONCLUSÃO     ");
+                Console.WriteLine("     CERTIFICADO DE CONCLUSÃO      ");
                 Console.WriteLine("===================================");
-                Console.WriteLine($"Aluno(a): {Aluno?.Nome ?? "Desconhecido"}");
+                Console.WriteLine($"Aluno(a): {Aluno?.Nome ?? "Nome não disponível"}");
                 Console.WriteLine($"Certificamos que o módulo \"{TituloModulo}\"");
-                Console.WriteLine($"foi concluído com sucesso em {DataConclusao?.ToShortDateString()}.");
+                Console.WriteLine($"foi concluído com aproveitamento em {DataConclusao?.ToShortDateString() ?? "Data não registrada"}.");
+                Console.WriteLine($"Nota da Avaliação: {Prova?.Nota}");
                 Console.WriteLine("Parabéns pelo empenho!");
                 Console.WriteLine("===================================");
             }
             else
             {
-                Console.WriteLine($"O módulo \"{TituloModulo}\" ainda não foi concluído. Conclua para emitir o certificado.");
+                string motivo = !Concluido ? "não foi concluído" : "a aprovação na avaliação está pendente";
+                Console.WriteLine($"Não é possível emitir o certificado: O módulo \"{TituloModulo}\" {motivo}.");
             }
         }
         #endregion

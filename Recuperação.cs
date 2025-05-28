@@ -9,19 +9,21 @@ namespace Trabalho_POO
     public class Recuperacao
     {
         #region Atributos
-        private required string aprovacaoProfessor { get; set; }
-        private required string disciplina { get; set; }
-        private required DateTime dataRecuperacao { get; set; }
-        private required string registroProva { get; set; }
+        public string RegistroAluno { get; set; }
+        public string AprovacaoProfessor { get; set; }
+        public string Disciplina { get; set; }
+        public DateTime DataRecuperacao { get; set; }
+        public string RegistroProvaReferencia { get; set; }
         #endregion
 
         #region Construtor
-        public Recuperacao(string aprovacaoProfessor, string curso, DateTime dataRecuperacao, string registroProva)
+        public Recuperacao(string registroAluno, string aprovacaoProfessor, string disciplina, DateTime dataRecuperacao, string registroProvaReferencia)
         {
-            this.aprovacaoProfessor = aprovacaoProfessor;
-            this.disciplina = disciplina;
-            this.dataRecuperacao = dataRecuperacao;
-            this.registroProva = registroProva;
+            RegistroAluno = registroAluno;
+            AprovacaoProfessor = aprovacaoProfessor;
+            Disciplina = disciplina;
+            DataRecuperacao = dataRecuperacao;
+            RegistroProvaReferencia = registroProvaReferencia;
         }
         #endregion
 
@@ -30,10 +32,35 @@ namespace Trabalho_POO
         #region Método ExibirDados
         public void ExibirDados()
         {
-            Console.WriteLine($"Aprovação do Professor: {aprovacaoProfessor}");
-            Console.WriteLine($"Curso: {curso}");
-            Console.WriteLine($"Data da Recuperação: {dataRecuperacao.ToString("dd/MM/yyyy")}");
-            Console.WriteLine($"Registro da Prova: {registroProva}");
+            Console.WriteLine("--- Detalhes da Recuperação ---");
+            Console.WriteLine($"Aluno (RA): {RegistroAluno}");
+            Console.WriteLine($"Status Aprovação Professor: {AprovacaoProfessor}");
+            Console.WriteLine($"Disciplina: {Disciplina}");
+            Console.WriteLine($"Data da Recuperação: {DataRecuperacao:dd/MM/yyyy}");
+            Console.WriteLine($"Registro da Prova de Referência: {RegistroProvaReferencia}");
+            Console.WriteLine("-----------------------------");
+        }
+        #endregion
+
+        #region Método AssociarAluno
+        public void AssociarAluno(Aluno aluno)
+        {
+            if (aluno != null)
+            {
+                Console.WriteLine($"Recuperação para a prova '{RegistroProvaReferencia}' está vinculada ao aluno {aluno.Nome} (Matrícula: {aluno.RegistroMatricula}).");
+            }
+            else
+            {
+                Console.WriteLine("Não é possível associar a um aluno nulo.");
+            }
+        }
+        #endregion
+
+        #region Método AtualizarStatusAprovacao
+        public void AtualizarStatusAprovacao(string novoStatus, string nomeProfessorAvaliador)
+        {
+            AprovacaoProfessor = $"{novoStatus} por Prof(a). {nomeProfessorAvaliador}";
+            Console.WriteLine($"Status de aprovação da recuperação para o aluno {RegistroAluno} (Prova: {RegistroProvaReferencia}) atualizado para: {AprovacaoProfessor}.");
         }
         #endregion
 

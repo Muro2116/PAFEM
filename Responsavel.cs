@@ -10,15 +10,16 @@ namespace Trabalho_POO
     {
         #region Atributos
         public int RegistroResponsavel { get; set; }
-        public Aluno Aluno { get; set; }
+        public Aluno AlunoVinculado { get; set; }
         #endregion
 
         #region Construtor
-        public Responsavel(int registroResponsavel, Aluno aluno, string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco)
+        public Responsavel(int registroResponsavel, Aluno alunoVinculado, string nome, string genero, string cpf, string rg,
+                            DateTime nascimento, string telefone, Endereco endereco)
             : base(nome, genero, cpf, rg, nascimento, telefone, endereco)
         {
-            this.RegistroResponsavel = registroResponsavel;
-            this.Aluno = aluno;
+            RegistroResponsavel = registroResponsavel;
+            AlunoVinculado = alunoVinculado;
         }
         #endregion
 
@@ -27,43 +28,57 @@ namespace Trabalho_POO
         #region Metodo ExibirDados
         public override void ExibirDados()
         {
-            Console.WriteLine($"Registro do Responsável: {RegistroResponsavel}");
-            Console.WriteLine($"Nome do Responsável: {nome}");
-            Console.WriteLine($"Telefone de Emergência: {telefone}");
-            Console.Write($"Endereço: ");
-            endereco.ExibirDados();
+            Console.WriteLine($"--- Dados do Responsável (Registro: {RegistroResponsavel}) ---");
+            base.ExibirDados();
+            if (AlunoVinculado != null)
+            {
+=                AlunoVinculado.ExibirDados();
+            }
+            else
+            {
+                Console.WriteLine("Nenhum aluno vinculado.");
+            }
             Console.WriteLine("\nDados do Aluno vinculado: ");
-            Aluno.ExibirDados();
-
         }
         #endregion
 
         #region Metodo AtualizarDados
-        public void AtualizarDados(string novoTelefone, Endereco novoEndereco)
+        public void AtualizarDadosContato(string novoTelefone, Endereco novoEndereco)
         {
-            telefone = novoTelefone;
-            endereco = novoEndereco;
-            Console.WriteLine("Informações atualizadas com sucesso.");
+            if (!string.IsNullOrWhiteSpace(novoTelefone))
+            {
+                Telefone = novoTelefone;
+            }
+            if (novoEndereco != null)
+            {
+                Endereco = novoEndereco;
+            }
+            Console.WriteLine("Dados de contato do responsável atualizados com sucesso.");
         }
         #endregion
 
         #region Metodo ValidarDados
         public bool DadosSaoValidos()
         {
-            return !string.IsNullOrWhiteSpace(nome) &&
-                   !string.IsNullOrWhiteSpace(telefone) &&
-                   endereco != null &&
-                   RegistroResponsavel > 0;
+            bool baseValido = !string.IsNullOrWhiteSpace(Nome) &&
+                                !string.IsNullOrWhiteSpace(Telefone) &&
+                                Endereco != null &&
+                                Endereco.Rua != null;
+
+            bool responsavelValido = RegistroResponsavel > 0 && AlunoVinculado != null;
+            return baseValido && responsavelValido;
         }
         #endregion
 
-        #region Metodo Obter Aluno vinculado ao responsavel
+        #region Metodo ObterAlunoVinculado
 
         public Aluno ObterAlunoVinculado()
         {
-            return Aluno;
+            return AlunoVinculado;
         }
-            
+
+        #endregion
+
         #endregion
     }
 }

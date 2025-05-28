@@ -9,23 +9,23 @@ namespace Trabalho_POO
     public class Endereco
     {
         #region Atributos
-        public string rua { get; set; }
-        public string numero { get; set; }
-        public string bairro { get; set; }
-        public string cidade { get; set; }
-        public string estado { get; set; }
-        public string cep { get; set; }
+        public string Rua { get; set; }
+        public string Numero { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
+        public string Cep { get; set; }
         #endregion
 
         #region Construtor
         public Endereco(string rua, string numero, string bairro, string cidade, string estado, string cep)
         {
-            this.rua = rua;
-            this.numero = numero;
-            this.bairro = bairro;
-            this.cidade = cidade;
-            this.estado = estado;
-            this.cep = cep;
+            Rua = rua;
+            Numero = numero;
+            Bairro = bairro;
+            Cidade = cidade;
+            Estado = estado;
+            Cep = cep;
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace Trabalho_POO
         #region Metodo ExibirDados
         public void ExibirDados()
         {
-            Console.WriteLine($"Endereço: {rua}, {numero}, {bairro}, {cidade} - {estado}, CEP: {cep}");
+            Console.WriteLine($"Endereço: {Rua}, {Numero}, {Bairro}, {Cidade} - {Estado}, CEP: {Cep}");
         }
         #endregion
 

@@ -9,53 +9,53 @@ namespace Trabalho_POO
     public abstract class Pessoa
     {
         #region Atributos
-        protected required string nome { get; set; }
-        protected required string genero { get; set; }
-        protected required string cpf { get; set; }
-        protected required string rg { get; set; }
-        protected required DateTime nascimento { get; set; }
-        protected required string telefone { get; set; }
-        protected required Endereco endereco { get; set; }
+        protected string Nome { get; set; }
+        protected string Genero { get; set; }
+        protected string Cpf { get; set; }
+        protected string Rg { get; set; }
+        protected DateTime Nascimento { get; set; }
+        protected string Telefone { get; set; }
+        protected Endereco Endereco { get; set; }
         #endregion
 
         #region Construtor
-        public Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco Endereco)
+        protected Pessoa(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco)
         {
-            this.nome = nome;
-            this.genero = genero;
-            this.cpf = cpf;
-            this.rg = rg;
-            this.nascimento = nascimento;
-            this.telefone = telefone;
-            this.endereco = endereco;
+            Nome = nome;
+            Genero = genero;
+            Cpf = cpf;
+            Rg = rg;
+            Nascimento = nascimento;
+            Telefone = telefone;
+            Endereco = endereco;
         }
         #endregion
 
         #region Metodos
 
         #region Método para validar CPF
-        public static bool ValidarCPF(string cpf)
+        public static bool ValidarCPF(string cpfParaValidar)
         {
-            cpf = cpf.Replace(".", "").Replace("-", "");
+            string cpfLimpo = cpfParaValidar.Replace(".", "").Replace("-", "");
 
-            if (cpf.Length != 11 || cpf.Distinct().Count() == 1)
+            if (cpfLimpo.Length != 11 || cpfLimpo.Distinct().Count() == 1)
                 return false;
 
-            for (int digito = 0; digito < 2; digito++)
+            for (int digitoIdx = 0; digitoIdx < 2; digitoIdx++)
             {
                 int soma = 0;
-                int peso = 10 + digito;
+                int pesoInicial = 10 + digitoIdx;
 
-                for (int i = 0; i < 9 + digito; i++)
+                for (int i = 0; i < 9 + digitoIdx; i++)
                 {
-                    soma += (cpf[i] - '0') * (peso - i);
+                    soma += (cpfLimpo[i] - '0') * (pesoInicial - i);
                 }
 
                 int resultado = soma % 11;
 
-                int verificador = resultado < 2 ? 0 : 11 - resultado;
+                int digitoVerificadorCalculado = resultado < 2 ? 0 : 11 - resultado;
 
-                if ((cpf[9 + digito] - '0') != verificador)
+                if ((cpfLimpo[9 + digitoIdx] - '0') != digitoVerificadorCalculado)
                     return false;
             }
             return true;
@@ -66,12 +66,21 @@ namespace Trabalho_POO
         public virtual void ExibirDados()
         {
             Console.WriteLine("------------------------------------");
-            Console.WriteLine($"Nome: {nome}");
-            Console.WriteLine($"Gênero: {genero}")
-            Console.WriteLine($"CPF: {cpf}");
-            Console.WriteLine($"RG: {rg}");
-            Console.WriteLine($"Data de Nascimento: {nascimento:dd/MM/yyyy}");
-            Console.WriteLine($"Telefone: {telefone}");
+            Console.WriteLine($"Nome: {Nome}");
+            Console.WriteLine($"Gênero: {Genero}");
+            Console.WriteLine($"CPF: {Cpf}");
+            Console.WriteLine($"RG: {Rg}");
+            Console.WriteLine($"Data de Nascimento: {Nascimento:dd/MM/yyyy}");
+            Console.WriteLine($"Telefone: {Telefone}");
+            if (Endereco != null)
+            {
+                Console.Write("Endereço: ");
+                Endereco.ExibirDados();
+            }
+            else
+            {
+                Console.WriteLine("Endereço: Não informado");
+            }
             Console.WriteLine("------------------------------------");
         }
         #endregion

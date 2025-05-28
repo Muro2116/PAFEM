@@ -9,18 +9,19 @@ namespace Trabalho_POO
     public class Aluno : Pessoa
     {
         #region Atributos
-        private int registroMatricula { get; private set; }
-        private string curso { get; set; }
-        private DateTime dataMatricula { get; private set; }
+        public int RegistroMatricula { get; private set; }
+        public string Curso { get; set; }
+        public DateTime DataMatricula { get; private set; }
         #endregion
 
         #region Construtor
-        public Aluno(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, int registroMatricula, string curso, DateTime dataMatricula)
-            : base(nome, genero, cpf, rg, nascimento, telefone)
+        public Aluno(string nome, string genero, string cpf, string rg, DateTime nascimento, string telefone, Endereco endereco,
+                    int registroMatricula, string curso, DateTime dataMatricula)
+            : base(nome, genero, cpf, rg, nascimento, telefone, endereco)
         {
-            this.RegistroMatricula = registroMatricula;
-            this.Curso = curso;
-            this.DataMatricula = dataMatricula;
+            RegistroMatricula = registroMatricula;
+            Curso = curso;
+            DataMatricula = dataMatricula;
         }
         #endregion
 
@@ -36,21 +37,28 @@ namespace Trabalho_POO
         }
         #endregion
 
-        #region Metodo AtualizarDados
-        public void AtualizarDados(string novoCurso)
+        #region Metodo AtualizarCurso
+        public void AtualizarCurso(string novoCurso)
         {
-            Curso = novoCurso;
-            Console.WriteLine("Curso atualizado");
+            if (!string.IsNullOrWhiteSpace(novoCurso))
+            {
+                Curso = novoCurso;
+                Console.WriteLine("Curso atualizado");
+            }
+            else
+            {
+                Console.WriteLine("Nome do novo curso não pode ser vazio");
+            }
         }
         #endregion
 
-        #region Metodo ExcluirDados
-        public void ExcluirDados()
+        #region Metodo LimparDadosAluno
+        public void LimparDadosAluno()
         {
             RegistroMatricula = 0;
             Curso = string.Empty;
             DataMatricula = DateTime.MinValue;
-            Console.WriteLine("Aluno Excluido");
+            Console.WriteLine("Dados específicos do aluno foram limpos/resetados.");
         }
         #endregion
 
@@ -73,7 +81,10 @@ namespace Trabalho_POO
         {
             var hoje = DateTime.Today;
             int idade = hoje.Year - Nascimento.Year;
-            if (Nascimento.Date > hoje.AddYears(-idade)) idade--;
+            if (Nascimento.Date > hoje.AddYears(-idade))
+            {
+                idade--;
+            }
             return idade;
         }
         #endregion

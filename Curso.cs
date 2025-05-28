@@ -9,21 +9,21 @@ namespace Trabalho_POO
     public class Curso
     {
         #region Atributos
-        private int registro { get; set; }
-        private string nome { get; set; }
-        private decimal valor { get; set; }
-        private DateTime dataInicio { get; set; }
-        private DateTime dataFim { get; set; }
+        public int Registro { get; private set; } 
+        public string Nome { get; set; }
+        public decimal Valor { get; set; }
+        public DateTime DataInicio { get; set; }
+        public DateTime DataFim { get; set; }
         #endregion
 
         #region Construtor
-        public void Curso(int registro, string nome, decimal valor, DateTime dataInicio, DateTime dataFim)
+        public Curso(int registro, string nome, decimal valor, DateTime dataInicio, DateTime dataFim)
         {
-            this.registro = registro;
-            this.nome = nome;
-            this.valor = valor;
-            this.dataInicio = dataInicio;
-            this.dataFim = dataFim;
+            Registro = registro;
+            Nome = nome;
+            Valor = valor;
+            DataInicio = dataInicio;
+            DataFim = dataFim;
         }
         #endregion
 
@@ -32,46 +32,66 @@ namespace Trabalho_POO
         #region Metodo ExibirDados
         public void ExibirDados()
         {
+            Console.WriteLine("--- Detalhes do Curso ---");
             Console.WriteLine($"Registro: {Registro}");
             Console.WriteLine($"Nome: {Nome}");
-            Console.WriteLine($"Valor: R${Valor}");
-            Console.WriteLine($"Data de Início: {DataInicio}");
-            Console.WriteLine($"Data de Fim: {DataFim}");
+            Console.WriteLine($"Valor: R${Valor:F2}"); // F2 para formatar como moeda
+            Console.WriteLine($"Data de Início: {DataInicio:dd/MM/yyyy}");
+            Console.WriteLine($"Data de Fim: {DataFim:dd/MM/yyyy}");
+            Console.WriteLine($"Duração Estimada: {CalcularDuracaoEmDias()} dias");
+
         }
         #endregion
 
         #region Metodo AtualizarDados
-        public void AtualizarDados(string nome, decimal valor, DateTime dataInicio, DateTime dataFim)
+        public void AtualizarDados(string novoNome, decimal novoValor, DateTime novaDataInicio, DateTime novaDataFim)
         {
-            Nome = nome;
-            Valor = valor;
-            DataInicio = dataInicio;
-            DataFim = dataFim;
+            if (!string.IsNullOrWhiteSpace(novoNome))
+                Nome = novoNome;
+            if (novoValor >= 0)
+                Valor = novoValor;
+            DataInicio = novaDataInicio;
+            DataFim = novaDataFim;
+            
+            Console.WriteLine($"Dados do curso '{Nome}' (Registro: {Registro}) atualizados.");
         }
         #endregion
 
-        #region Metodo ExcluirDados
-        public void ExcluirDados()
+        #region Metodo LimparDadosCurso
+        public void LimparDadosCurso()
         {
-            Registro = 0;
-            Nome = null;
+            Nome = string.Empty;
             Valor = 0;
             DataInicio = DateTime.MinValue;
             DataFim = DateTime.MinValue;
+            Console.WriteLine($"Dados do curso (Registro: {Registro}) foram limpos/resetados.");
         }
         #endregion
 
         #region Metodo AplicarDesconto
-        public void AplicarDesconto(decimal porcentagem)
+        public void AplicarDesconto(decimal percentualDesconto)
         {
-            Valor -= Valor * (porcentagem / 100);
+            if (percentualDesconto > 0 && percentualDesconto <= 100)
+            {
+                Valor -= Valor * (percentualDesconto / 100);
+                Console.WriteLine($"Desconto de {percentualDesconto}% aplicado. Novo valor do curso '{Nome}': R${Valor:F2}");
+            }
+            else
+            {
+                Console.WriteLine("Percentual de desconto inválido. Deve ser entre 0 e 100.");
+            }
         }
         #endregion
 
-        #region Metodo CalcularDuracao 
-        public int CalcularDuracao()
+        #region Metodo CalcularDuracaoEmDias 
+        public int CalcularDuracaoEmDias()
         {
-            return (DataFim - DataInicio).Days; // Retorna a duração em dias
+            if (DataFim >= DataInicio)
+            {
+                return (DataFim - DataInicio).Days;
+            }
+            return 0;
+            
         }
         #endregion
 
