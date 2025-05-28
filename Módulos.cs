@@ -15,8 +15,8 @@ namespace Trabalho_POO
         public bool Concluido { get; private set; }
         public DateTime? DataInicio { get; set; }
         public DateTime? DataConclusao { get; private set; }
-        public Aluno Aluno { get; set; }
-        public Prova Prova { get; set; }
+        public Aluno? Aluno { get; set; }
+        public Prova? Prova { get; set; }
         #endregion
 
         #region Construtor

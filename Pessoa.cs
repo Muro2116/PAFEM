@@ -9,13 +9,13 @@ namespace Trabalho_POO
     public abstract class Pessoa
     {
         #region Atributos
-        protected string Nome { get; set; }
-        protected string Genero { get; set; }
-        protected string Cpf { get; set; }
-        protected string Rg { get; set; }
-        protected DateTime Nascimento { get; set; }
-        protected string Telefone { get; set; }
-        protected Endereco Endereco { get; set; }
+        public string Nome { get; protected set; }
+        public string Genero { get; protected set; }
+        public string Cpf { get; protected set; }
+        public string Rg { get; protected set; }
+        public DateTime Nascimento { get; protected set; }
+        public string Telefone { get; protected set; }
+        public Endereco Endereco { get; protected set; }
         #endregion
 
         #region Construtor

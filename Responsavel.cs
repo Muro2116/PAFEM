@@ -32,7 +32,7 @@ namespace Trabalho_POO
             base.ExibirDados();
             if (AlunoVinculado != null)
             {
-=                AlunoVinculado.ExibirDados();
+                AlunoVinculado.ExibirDados();
             }
             else
             {
